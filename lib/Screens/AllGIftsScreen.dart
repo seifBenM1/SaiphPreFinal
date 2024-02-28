@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 // Define GiftManager outside the _AllGiftsScreenState class
 class GiftManager {
   Future<List<GiftModel>> getAllGifts() {
-    return FireStoreMethods().getAllGifts();
+    return FireStoreMethodes().getAllGifts();
   }
 
   Future<String> claimGift(String giftCard, String userFullScore, String userId) async {
@@ -129,7 +129,8 @@ class _AllGiftsScreenState extends State<AllGiftsScreen> {
                       ),
                     ),
                     Text(
-                      userProvider.getUser.FullScore, // Display user's full score
+                      userProvider.getUser.FullScore,
+                      // Display user's full score
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 24,
@@ -160,22 +161,28 @@ class _AllGiftsScreenState extends State<AllGiftsScreen> {
                     List<GiftModel>? giftList = snapshot.data;
                     if (giftList != null && giftList.isNotEmpty) {
                       return Column(
-                        children: giftList.asMap().entries.map((entry) {
+                        children: giftList
+                            .asMap()
+                            .entries
+                            .map((entry) {
                           int index = entry.key;
                           GiftModel gift = entry.value;
-                          Color color = index.isEven ? Colors.orange : Colors.blue; // Alternating colors
+                          Color color = index.isEven ? Colors.orange : Colors
+                              .blue; // Alternating colors
 
                           return Column(
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  _showDialog('${gift.code}', userProvider.getUser.uid);
+                                  _showDialog(
+                                      '${gift.code}', userProvider.getUser.uid);
                                 },
                                 child: Container(
                                   width: 307.17,
                                   height: 54,
                                   decoration: BoxDecoration(
-                                    color: color, // Use dynamically calculated color
+                                    color: color,
+                                    // Use dynamically calculated color
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   child: Center(
@@ -217,7 +224,8 @@ class _AllGiftsScreenState extends State<AllGiftsScreen> {
   void _showDialog(String giftCode, String userId) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
-    if (userProvider.getUser == null || userProvider.getUser.FullScore == null) {
+    if (userProvider.getUser == null ||
+        userProvider.getUser.FullScore == null) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -241,12 +249,20 @@ class _AllGiftsScreenState extends State<AllGiftsScreen> {
     int userFullScore = int.parse(userProvider.getUser.FullScore!);
     String claimResult = await GiftManager().claimGift(
         giftCode, userFullScore.toString(), userId);
+
+    String message;
+    if (claimResult.startsWith('Cadeau réclamé avec succès')) {
+      message = ' Code Cadeau ($giftCode) Veuillez COPIER LE CODE AVANT DE QUITTER !';
+    } else {
+      message = claimResult;
+    }
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text("Claim Gift"),
-          content: Text(claimResult),
+          content: Text(message),
           actions: <Widget>[
             TextButton(
               onPressed: () {
