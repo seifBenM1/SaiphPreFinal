@@ -8,12 +8,12 @@ import 'package:saiphappfinal/Screens/user_formulaire_one.dart';
 import 'package:saiphappfinal/providers/user_provider.dart';
 import 'package:saiphappfinal/utils/games_utils/inject_dependencies.dart';
 import 'package:provider/provider.dart';
-import'package:saiphappfinal/Screens/Games/flappybird/main.dart';
+import 'package:saiphappfinal/Screens/Quiz/Quiz_screen.dart';
+import 'package:saiphappfinal/Screens/Games/flappybird/main.dart';
 import 'package:saiphappfinal/Screens/SignInScreen.dart';
 import 'Responsive/mobile_screen_layout.dart';
 import 'Responsive/responsive_layout_screen.dart';
 import 'Responsive/web_screen_layout.dart';
-
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -62,14 +62,12 @@ class MyApp extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.active) {
               // Checking if the snapshot has any data or not
               if (snapshot.hasData) {
-                // User is already signed in, navigate to the main screen
-                return ResponsiveLayout(
-                  mobileScreenLayout: MobileScreenLayout(),
-                  webScreenLayout: WebScreenLayout(),
-                );
-              } else {
-                // User is not signed in, show the splash screen
-                return SignInScreen();
+
+                  // User is already signed in and verified, navigate to the responsive screen
+
+                  // User is signed in but not verified, navigate to the main screen
+                  return SignInScreen();
+
               }
             }
 
@@ -80,6 +78,7 @@ class MyApp extends StatelessWidget {
               );
             }
 
+            // Show splash screen by default
             return SplashScreen();
           },
         ),
