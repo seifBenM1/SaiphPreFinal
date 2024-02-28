@@ -25,12 +25,13 @@ void main() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyCzA6qTchzKCjIvJippBtqb3sj1LL6UNo4",
-        authDomain: "adol-2789a.firebaseapp.com",
-        projectId: "adol-2789a",
-        storageBucket: "adol-2789a.appspot.com",
-        messagingSenderId: "345522697739",
-        appId: "1:345522697739:web:ab291843dd7c46520d790e",
+          apiKey: "AIzaSyDd73LUWiKhfIm9hoS7OtqqfrsIdpGf3-I",
+          authDomain: "mysaiph-26b1c.firebaseapp.com",
+          projectId: "mysaiph-26b1c",
+          storageBucket: "mysaiph-26b1c.appspot.com",
+          messagingSenderId: "154959907692",
+          appId: "1:154959907692:web:519c2023e47834f7518149",
+          measurementId: "G-1Z9EGRPDCD"
       ),
     );
   } else {
