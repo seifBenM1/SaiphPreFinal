@@ -236,20 +236,22 @@ class _HomePageState extends State<HomePage> {
 
   Widget cardItem(Color color, String image, VoidCallback onPressed, double width, double paddingV, double paddingH){
     return InkWell(
-      onTap: () {
-        onPressed();
-      },
-      child: Container(
-        width: width,
-        padding: EdgeInsets.symmetric(vertical: paddingV,horizontal: paddingH),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: color
+      onTap: onPressed,
+      child: Padding( // Add Padding widget here
+        padding: const EdgeInsets.symmetric(horizontal: 8.0), // Adjust horizontal padding as needed
+        child: Container(
+          width: width,
+          padding: EdgeInsets.symmetric(vertical: paddingV,horizontal: paddingH),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: color
+          ),
+          child: Image.asset(image,fit: BoxFit.contain),
         ),
-        child: Image.asset(image,fit: BoxFit.contain),
       ),
     );
   }
+
 
   Widget buildCarouselItem(String imagePath, String title,VoidCallback onPressed, double overlayOpacity) {
     return InkWell(
